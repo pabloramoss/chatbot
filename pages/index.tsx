@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { Dashboard } from '../src/components/Dashboard/Dashboard'
+import { Flow } from '../src/components/Flow'
 import { Layout } from '../src/components/Layout'
 import styles from '../styles/Home.module.css'
 
@@ -14,6 +15,7 @@ export default function Home() {
       <main>
         <Layout>
           <Dashboard />
+          <Flow />
         </Layout>
       </main>
     </div>

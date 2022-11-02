@@ -1,3 +1,4 @@
+import React, { useState } from "react"
 import styled from "styled-components"
 
 const ChatbotKeyContainer = styled.div`
@@ -19,6 +20,11 @@ const ChatbotKeyContainer = styled.div`
 `
 
 export const ChatbotKey: React.FC = () => {
+  const [token, setToken] = useState("")
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setToken(e.target.value)
+  }
 
   return (
     <ChatbotKeyContainer>  
@@ -32,7 +38,7 @@ export const ChatbotKey: React.FC = () => {
         <img height={100} width={100} src="https://via.placeholder.com/100" alt="telegram placeholder"/>
       </div>
       <form style={{display: "flex"}}>
-        <input placeholder="bot token" />
+        <input onChange={handleChange} placeholder="bot token" />
         <button>Connect</button>
       </form>
       <p>How do I get bot's token?</p>
