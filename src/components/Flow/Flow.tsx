@@ -45,9 +45,15 @@ export const Flow: React.FC = () => {
   );
 
   const onConnect = useCallback((params: any) => setEdges((eds) => addEdge(params, eds)), []);
+  
+  const sendMessage = async () => {
+    const chat_id = 1367188448
+    await fetch(`https://api.telegram.org/bot5165116240:AAFAI03uGZhb2C7Wg6TGkdhQ6Jg4DMJauSo/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent("mensaje de prueba")}`)
+  }
 
 return (
   <div style={{height: "100vh"}}>
+    <button onClick={sendMessage}>send message</button>
     <ReactFlow
       nodes={nodes}
       onNodesChange={onNodesChange}
