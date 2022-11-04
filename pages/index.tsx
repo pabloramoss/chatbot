@@ -1,11 +1,25 @@
 import Head from 'next/head'
+import { useContext, useState } from 'react'
 import { Dashboard } from '../src/components/Dashboard/Dashboard'
 import { Flow } from '../src/components/Flow'
 import { Layout } from '../src/components/Layout'
 import styles from '../styles/Home.module.css'
+import { Node } from "reactflow"
+import { NodesContext } from '../src/context/NodesContext'
 
 export default function Home() {
+  const {nodes} = useContext(NodesContext)
 
+  const parseMessage = (nodes: Node[]) => {
+    const message = nodes.map( node => node.data.text).join(" ")
+    return message
+  }
+
+  const sendMessage = async () => {
+    const text = parseMessage(nodes)
+    const chat_id = 1367188448
+    await fetch(`https://api.telegram.org/bot5165116240:AAFAI03uGZhb2C7Wg6TGkdhQ6Jg4DMJauSo/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(text)}`)
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -15,6 +29,8 @@ export default function Home() {
       </Head>
       <main>
         <Layout>
+          {/* {nodes.map( (node: Node) => <p key={node.id}>{node.data.text}</p>)} */}
+          <button onClick={sendMessage}>Enviar</button>
           <Dashboard />
           <Flow />
         </Layout>
