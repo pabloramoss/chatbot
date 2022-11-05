@@ -1,10 +1,9 @@
-import ReactFlow, { addEdge, applyEdgeChanges, applyNodeChanges, Background, Controls, Edge, EdgeChange, Node, NodeChange } from "reactflow";
+import ReactFlow, { Background, Controls } from "reactflow";
 import SourceNode from "./CustomNodes/SourceNode";
 import TargetNode from "./CustomNodes/TargetNode";
 import DefaultNode from "./CustomNodes/DefaultNode";
-import { useCallback, useContext, useState } from "react";
-import { initialEdges, initialNodes } from "../../constants/initialNodes";
-import { NodesContext } from "../../context/NodesContext";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { connectChange, edgesChange, nodesChange } from "../../redux/slices/flowChartSlice";
 
 const nodeTypes = {
   sourceNode: SourceNode,
@@ -12,16 +11,18 @@ const nodeTypes = {
   defaultNode: DefaultNode,
 };
 export const Flow: React.FC = () => {
-  const {nodes, edges, onNodesChange, onEdgesChange, onConnect} = useContext(NodesContext)
+
+  const dispatch = useAppDispatch()
+  const {nodes, edges} = useAppSelector(state => state.flowchart)
 
 return (
-  <div style={{height: "100vh"}}>
+  <div style={{height: "100%", width: "100%"}}>
     <ReactFlow
       nodes={nodes}
-      onNodesChange={onNodesChange}
+      onNodesChange={(changes) => dispatch(nodesChange(changes))}
       edges={edges}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
+      onEdgesChange={(changes) => dispatch(edgesChange(changes))}
+      onConnect={(connection) => dispatch(connectChange(connection))}
       nodeTypes={nodeTypes}
     >
       <Background />

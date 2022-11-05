@@ -1,15 +1,14 @@
 import Head from 'next/head'
-import { useContext, useState } from 'react'
-import { Dashboard } from '../src/components/Dashboard/Dashboard'
 import { Flow } from '../src/components/Flow'
 import { Layout } from '../src/components/Layout'
 import styles from '../styles/Home.module.css'
 import { Node } from "reactflow"
-import { NodesContext } from '../src/context/NodesContext'
+import { LeftSidebar } from '../src/components/LeftSidebar/LeftSidebar'
+import { RightSidebar } from '../src/components/RightSidebar'
+import { useAppSelector } from '../src/redux/hooks'
 
 export default function Home() {
-  const {nodes} = useContext(NodesContext)
-
+  const nodes = useAppSelector(state => state.flowchart.nodes)
   const parseMessage = (nodes: Node[]) => {
     const message = nodes.map( node => node.data.text).join(" ")
     return message
@@ -20,6 +19,7 @@ export default function Home() {
     const chat_id = 1367188448
     await fetch(`https://api.telegram.org/bot5165116240:AAFAI03uGZhb2C7Wg6TGkdhQ6Jg4DMJauSo/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(text)}`)
   }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -29,10 +29,16 @@ export default function Home() {
       </Head>
       <main>
         <Layout>
+          <div style={{display: "flex", width: "100vw", height: "94vh"}}>
+            <LeftSidebar />
+            {/* <RightSidebar /> */}
+            <Flow />
+          </div>
           {/* {nodes.map( (node: Node) => <p key={node.id}>{node.data.text}</p>)} */}
-          <button onClick={sendMessage}>Enviar</button>
-          <Dashboard />
-          <Flow />
+          {/* <button onClick={sendMessage}>Enviar</button>
+          <button onClick={() => console.log(edges)}>edges</button>
+          <button onClick={() => console.log(nodes)}>nodes</button> */}
+          {/* <Dashboard /> */}
         </Layout>
       </main>
     </div>

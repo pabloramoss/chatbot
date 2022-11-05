@@ -1,16 +1,20 @@
 import styled from "styled-components"
 
-const NavbarContainer = styled.nav`
+const Container = styled.nav`
   width: 100vw;
-  height:50px;
+  height: 6vh;
   background: lightblue;
+
+  p {
+    margin: 0;
+  }
 `
 
 export const Navbar: React.FC = () => {
 
   return (
-    <NavbarContainer>
+    <Container>
       <p>Navbar</p>
-    </NavbarContainer>
+    </Container>
   )
 }

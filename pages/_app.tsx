@@ -1,12 +1,13 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import 'reactflow/dist/style.css';
-import { NodesProvider } from "../src/context/NodesContext"
+import {Provider} from "react-redux";
+import {store} from "../src/redux/store"
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <NodesProvider>
+    <Provider store={store}>
       <Component {...pageProps} />
-    </NodesProvider>
+    </Provider>
   )
 }
