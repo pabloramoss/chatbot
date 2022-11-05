@@ -14,7 +14,7 @@ const sidebarRight = createSlice({
   reducers: {
     setSidebarOpen: (state, action: PayloadAction<boolean>) => {
       state.sidebarOpen = action.payload
-    }
+    },
   }
 });
 

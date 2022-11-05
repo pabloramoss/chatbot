@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import { addEdge, applyEdgeChanges, applyNodeChanges, Connection, Edge, EdgeChange, Node, NodeChange, updateEdge } from "reactflow";
+import { addEdge, applyEdgeChanges, applyNodeChanges, Connection, Edge, EdgeChange, Node, NodeChange, OnSelectionChangeParams, updateEdge } from "reactflow";
+import { findIndex } from "../../components/Flow/utils";
 import { initialEdges, initialNodes } from "../../constants/initialNodes";
 
 
@@ -52,6 +53,10 @@ const flowChartSlice = createSlice({
     
       state.edges = newEdgeArray;
     },
+    updateSingleNode: (state, action: PayloadAction<Node>) => {
+      const nodeIndex = findIndex(state.nodes, action.payload.id)
+      state.nodes.splice(nodeIndex!, 1, action.payload)
+    },
     updateSingleEdge: (state, action: PayloadAction<any>) => {
       const {oldEdge, newConnection} = action.payload
       const newEdgesArray = updateEdge(oldEdge, newConnection, state.edges)
@@ -65,10 +70,23 @@ const flowChartSlice = createSlice({
 
       state.edges = newEdgesArray
     },
+    setSelection: (state, action: PayloadAction<OnSelectionChangeParams>) => {
+      state.selection = action.payload
+    },
   }
 });
 
-export const {nodeAdd, updateNodes, updateEdges, nodesChange, edgesChange, connectChange, updateSingleEdge, removeEdge
+export const {
+  nodeAdd, 
+  updateNodes, 
+  updateEdges, 
+  nodesChange, 
+  edgesChange, 
+  connectChange, 
+  updateSingleNode,
+  updateSingleEdge, 
+  removeEdge,
+  setSelection,
 
 } = flowChartSlice.actions;
 

@@ -26,7 +26,7 @@ const TargetNode: React.FC<Props> = ({data, selected}) => {
           />
         </div>
       }
-      label={data.label}
+      data={data}
       selected={selected}
     />
   );

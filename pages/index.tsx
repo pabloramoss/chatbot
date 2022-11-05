@@ -2,10 +2,11 @@ import Head from 'next/head'
 import { Flow } from '../src/components/Flow'
 import { Layout } from '../src/components/Layout'
 import styles from '../styles/Home.module.css'
-import { Node } from "reactflow"
+import { Node, ReactFlowProvider } from "reactflow"
 import { LeftSidebar } from '../src/components/LeftSidebar/LeftSidebar'
 import { RightSidebar } from '../src/components/RightSidebar'
 import { useAppSelector } from '../src/redux/hooks'
+import { Flowchart } from '../src/components/Flow/Flowchart'
 
 export default function Home() {
   const nodes = useAppSelector(state => state.flowchart.nodes)
@@ -29,10 +30,13 @@ export default function Home() {
       </Head>
       <main>
         <Layout>
-          <div style={{display: "flex", width: "100vw", height: "94vh"}}>
-            <LeftSidebar />
-            {/* <RightSidebar /> */}
-            <Flow />
+          <div style={{display: "flex", width: "100vw", height: "94vh", position: "relative", overflowX: "hidden"}}>
+            <ReactFlowProvider>
+
+              <LeftSidebar />
+              <Flow />
+              <RightSidebar />
+            </ReactFlowProvider>
           </div>
           {/* {nodes.map( (node: Node) => <p key={node.id}>{node.data.text}</p>)} */}
           {/* <button onClick={sendMessage}>Enviar</button>

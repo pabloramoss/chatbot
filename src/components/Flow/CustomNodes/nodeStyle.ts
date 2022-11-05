@@ -39,7 +39,7 @@ export const style = {
     textAlign: "center",
   },
   selected: {
-    boxShadow: "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)",
+    boxShadow: "0 0 20px red",
   },
   title: {
     position: "absolute",
